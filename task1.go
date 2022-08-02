@@ -46,22 +46,4 @@ func main() {
 	code := "220411112603141304"
 
 	codeToString(code, output)
-	//myMap := map[string]rune{}
-	//
-	//for key, value := range alphabet {
-	//	tmp := strconv.Itoa(key)
-	//
-	//	if key < 10 {
-	//		myMap["0"+tmp] = value
-	//	} else {
-	//		myMap[tmp] = value
-	//	}
-	//}
-	//
-	//for i := 0; i < len(code); i += 2 {
-	//	tmp := string(code[i]) + string(code[i+1])
-	//	output = append(output, myMap[tmp])
-	//}
-	//
-	//fmt.Println(string(output))
 }
