@@ -61,7 +61,6 @@ func valid(p *string, hasReplace, hasLower, hasUpper, hasDigits, length, invalid
 	for _, value := range *p {
 		chars[value] = 0
 	}
-	fmt.Println(len(*p))
 	if len(*p) < minlength || len(*p) > maxlength {
 		*length = false
 	}
