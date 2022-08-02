@@ -115,13 +115,14 @@ func main() {
 		"Длина пароля должна быть от 8(мин) до 15(макс) символов. Максимальное количество попыток ввода пароля - 5\n")
 	var password string
 	for count := 1; count <= attempt; count++ {
-
-		hasReplace := false
-		hasLower := false
-		hasUpper := false
-		hasDigits := false
-		invalid := false
-		length := true
+		var (
+			hasReplace = false
+			hasLower   = false
+			hasUpper   = false
+			hasDigits  = false
+			invalid    = false
+			length     = true
+		)
 
 		inputPassword(&password)
 
