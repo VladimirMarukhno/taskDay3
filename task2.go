@@ -48,10 +48,6 @@ const (
 
 // Вводим пароль
 func inputPassword(p *string) {
-
-	fmt.Print("Введите пароль, состоящий из: цифр, букв латинского алфавита(строчные и прописные) и специальных символов\n" +
-		"Длина пароля должна быть от 8(мин) до 15(макс) символов. Максимальное количество попыток ввода пароля - 5\n")
-
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	*p = scanner.Text()
@@ -65,7 +61,7 @@ func valid(p *string, hasReplace, hasLower, hasUpper, hasDigits, length, invalid
 	for _, value := range *p {
 		chars[value] = 0
 	}
-
+	fmt.Println(len(*p))
 	if len(*p) < minlength || len(*p) > maxlength {
 		*length = false
 	}
@@ -93,21 +89,22 @@ func messageError(hasReplace, hasLower, hasUpper, hasDigits, length, invalid *bo
 
 	if *invalid {
 		errMessage = append(errMessage, "Используются недопустимые символы!")
-	}
-	if !*hasReplace {
-		errMessage = append(errMessage, "Используйте спецсимволы!")
-	}
-	if !*hasLower {
-		errMessage = append(errMessage, "Используйте буквы в нижнем регистре!")
-	}
-	if !*hasUpper {
-		errMessage = append(errMessage, "Используйте буквы в верхнем регистре!")
-	}
-	if !*hasDigits {
-		errMessage = append(errMessage, "Используйте цифры!")
-	}
-	if *length {
-		errMessage = append(errMessage, "Длина пароля не соответствует заданным параметрам!")
+	} else {
+		if !*hasReplace {
+			errMessage = append(errMessage, "Используйте спецсимволы!")
+		}
+		if !*hasLower {
+			errMessage = append(errMessage, "Используйте буквы в нижнем регистре!")
+		}
+		if !*hasUpper {
+			errMessage = append(errMessage, "Используйте буквы в верхнем регистре!")
+		}
+		if !*hasDigits {
+			errMessage = append(errMessage, "Используйте цифры!")
+		}
+		if !*length {
+			errMessage = append(errMessage, "Длина пароля не соответствует заданным параметрам!")
+		}
 	}
 	for _, elem := range errMessage {
 		fmt.Println(elem)
@@ -115,6 +112,8 @@ func messageError(hasReplace, hasLower, hasUpper, hasDigits, length, invalid *bo
 }
 
 func main() {
+	fmt.Print("Введите пароль, состоящий из: цифр, букв латинского алфавита(строчные и прописные) и специальных символов\n" +
+		"Длина пароля должна быть от 8(мин) до 15(макс) символов. Максимальное количество попыток ввода пароля - 5\n")
 	var password string
 	for count := 1; count <= attempt; count++ {
 
@@ -123,13 +122,13 @@ func main() {
 		hasUpper := false
 		hasDigits := false
 		invalid := false
-		length := false
+		length := true
 
 		inputPassword(&password)
 
 		valid(&password, &hasReplace, &hasLower, &hasUpper, &hasDigits, &length, &invalid)
 
-		if !hasReplace || !hasLower || !hasUpper || !hasDigits || invalid {
+		if !hasReplace || !hasLower || !hasUpper || !hasDigits || invalid || !length {
 			messageError(&hasReplace, &hasLower, &hasUpper, &hasDigits, &length, &invalid)
 			fmt.Printf("Оставшиеся попытки ввода %d \n", attempt-count)
 		} else {
