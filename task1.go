@@ -41,7 +41,7 @@ func codeToString(code string, output []rune) {
 }
 
 func main() {
-	var output []rune
+	output := make([]rune, 0, 10)
 
 	code := "220411112603141304"
 
